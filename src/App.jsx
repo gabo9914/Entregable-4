@@ -10,17 +10,17 @@ const urlBase = "https://users-crud.academlo.tech/";
 
 function App() {
   const [isShowModal, setisShowModal] = useState(false);
-  const [users, setUsers] = useState([])
-  const [isUpdateUser, setisUpdateUser] = useState(null)
+  const [users, setUsers] = useState([]);
+  const [isUpdateUser, setisUpdateUser] = useState(null);
 
-  const handleUpdate=(user)=>{
-    setisShowModal(true)
-    setisUpdateUser(user)
-  }
+  const handleUpdate = (user) => {
+    setisShowModal(true);
+    setisUpdateUser(user);
+  };
 
-  const handleOpenModal=()=>{
-    setisShowModal(true)
-  }
+  const handleOpenModal = () => {
+    setisShowModal(true);
+  };
 
   const getAllUsers = () => {
     axios
@@ -29,35 +29,35 @@ function App() {
       .catch((err) => console.log(err));
   };
 
-  const createMovie=(newUsers, reset)=>{
+  const createUsers = (newUsers, reset) => {
     axios
-    .post(urlBase + "users/", newUsers)
-    .then(() => {
-      getAllUsers(),
-      setisShowModal(false)
-      reset(EMPTY_FOR_VALUES)
-    })
-    .catch((err) => console.log(err));
-  }
+      .post(urlBase + "users/", newUsers)
+      .then(() => {
+        getAllUsers();
+        setisShowModal(false);
+        reset(EMPTY_FOR_VALUES);
+      })
+      .catch((err) => console.log(err));
+  };
 
-  const deleteUser=(idUser)=>{
+  const deleteUser = (idUser) => {
     axios
-    .delete(urlBase + `users/${idUser}/`)
-    .then(() => getAllUsers())
-    .catch((err) => console.log(err));
-  }
+      .delete(urlBase + `users/${idUser}/`)
+      .then(() => getAllUsers())
+      .catch((err) => console.log(err));
+  };
 
-  const updateUser=(userUpdate, reset)=>{
+  const updateUser = (userUpdate, reset) => {
     axios
-    .patch(urlBase + `users/${isUpdateUser.id}/`, userUpdate)
-    .then(() => {
-      getAllUsers(),
-      setisShowModal(false),
-      reset(EMPTY_FOR_VALUES),
-      setisUpdateUser(null)
-    })
-    .catch((err) => console.log(err));
-  }
+      .patch(urlBase + `users/${isUpdateUser.id}/`, userUpdate)
+      .then(() => {
+        getAllUsers();
+        setisShowModal(false);
+        reset(EMPTY_FOR_VALUES); 
+        setisUpdateUser(null);
+      })
+      .catch((err) => console.log(err));
+  };
 
   useEffect(() => {
     getAllUsers();
@@ -67,15 +67,28 @@ function App() {
     <body className="bg-[#FFE5E5] min-h-screen">
       <header className=" flex justify-between">
         <h2 className=" m-2 font-extrabold text-2xl">Users</h2>
-        <button onClick={handleOpenModal} className=" flex justify-center items-center bg-black m-2 p-[1px] text-white rounded-md">
-          <IoMdAdd/> Create user
+        <button
+          onClick={handleOpenModal}
+          className=" flex justify-center items-center bg-black m-2 p-[1px] text-white rounded-md"
+        >
+          <IoMdAdd /> Create user
         </button>
       </header>
       <main className=" flex flex-wrap justify-center m-2 items-center">
-        <UsersForm isShowModal={isShowModal} setisShowModal={setisShowModal} createMovie=   {createMovie} isUpdateUser={isUpdateUser} updateUser={updateUser} setisUpdateUser={setisUpdateUser}/>
-        <UsersList users={users} deleteUser={deleteUser} handleUpdate={handleUpdate}/>
+        <UsersForm
+          isShowModal={isShowModal}
+          setisShowModal={setisShowModal}
+          createUsers={createUsers}
+          isUpdateUser={isUpdateUser}
+          updateUser={updateUser}
+          setisUpdateUser={setisUpdateUser}
+        />
+        <UsersList
+          users={users}
+          deleteUser={deleteUser}
+          handleUpdate={handleUpdate}
+        />
       </main>
-
     </body>
   );
 }

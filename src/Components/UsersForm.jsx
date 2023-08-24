@@ -5,7 +5,7 @@ import { EMPTY_FOR_VALUES } from "../shared/constants";
 
 const UsersForm = ({ 
   isShowModal,  
-  createMovie, 
+  createUsers, 
   isUpdateUser,
   updateUser,
   setisShowModal,
@@ -17,7 +17,7 @@ const UsersForm = ({
       updateUser(dataUsers, reset)
     }
     else{
-      createMovie(dataUsers, reset);
+      createUsers(dataUsers, reset);
     }
   };
 
